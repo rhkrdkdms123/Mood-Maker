@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Mood Maker</string>
+
+    <string name="home">Home</string>
+    <string name="mood">Mood</string>
+    <string name="schedule">Schedule</string>
+    <string name="setting">Setting</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
