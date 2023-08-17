@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
                 } else if (itemId == R.id.menu_mood) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame, new MoodFragment()).commit();
                 } else if (itemId == R.id.menu_schedule) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame, new ScheduleFragment()).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frame, new CalendarFragment()).commit();
                 } else if (itemId == R.id.menu_setting) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame, new SettingFragment()).commit();
                 }
