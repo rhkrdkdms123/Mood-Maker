@@ -48,7 +48,7 @@ public class SpeakerFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         listView = (ListView) view.findViewById(R.id.speakerListView);
-        currentMusicText=view.findViewById(R.id.currentMusicText);
+        currentMusicText=view.findViewById(R.id.currentMoodText);
         turnOffMusicBtn=view.findViewById(R.id.turnOffMusicBtn);
 
         // Firebase 데이터베이스 참조
@@ -96,7 +96,7 @@ public class SpeakerFragment extends Fragment {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("FirebaseError", "Error retrieving isAirTurnedOn: " + error.getMessage());
+                Log.e("FirebaseError", "Error retrieving currentMusic: " + error.getMessage());
             }
         });
 
@@ -120,13 +120,13 @@ public class SpeakerFragment extends Fragment {
                             currentMusicText.setText(SingerClicked+"-"+TitleClicked);
                         } else {
                             // Handle the case where air is not turned on
-                            Toast.makeText(requireContext(), "해당 곡은 이미 재생 중입니다.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(requireContext(), "해당 곡은 이미 재생 중 입니다.", Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        Log.e("FirebaseError", "Error retrieving isAirTurnedOn: " + error.getMessage());
+                        Log.e("FirebaseError", "Error retrieving currentMusic: " + error.getMessage());
                     }
                 });
             }
