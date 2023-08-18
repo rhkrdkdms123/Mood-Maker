@@ -36,7 +36,12 @@ public class MoodFragment extends Fragment {
     MoodAdapter adapter;
     TextView currentMoodText;
     Button turnOffModeBtn;
-    private DatabaseReference moodDataRef;
+    private  DatabaseReference moodDataRef;
+    private DatabaseReference airDataRef;
+    private DatabaseReference windowDataRef;
+    private DatabaseReference humDataRef;
+    private DatabaseReference lightDataRef;
+    private DatabaseReference speakerDataRef;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -90,7 +95,7 @@ public class MoodFragment extends Fragment {
 
         gridview.setCacheColorHint(Color.parseColor("#00000000"));
 
-        moodDataRef.child("currentMood").addListenerForSingleValueEvent(new ValueEventListener() {
+        moodDataRef.child("moodOption").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Long currentMood = snapshot.getValue(Long.class);
@@ -123,7 +128,7 @@ public class MoodFragment extends Fragment {
                             // Show a dialog to confirm the change
                             showConfirmationDialog(MoodClicked, adapter.getTitle(position));
                         } else {
-                            // Handle the case where air is not turned on
+                            // Handle the case where Mood is not turned on
                             Toast.makeText(requireContext(), "해당 모드는 이미 적용 중 입니다.", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -177,7 +182,8 @@ public class MoodFragment extends Fragment {
         builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                saveLightOption(optionNumber);
+                moodDataRef.child("moodOption").setValue(optionNumber);
+                setMoodOption(optionNumber);
             }
         });
         builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
@@ -189,9 +195,90 @@ public class MoodFragment extends Fragment {
         builder.show();
     }
 
-    private void saveLightOption(long optionNumber) {
-        moodDataRef.child("moodOption").setValue(optionNumber);
+    private void setMoodOption(long optionNumber) {
+        switch ((int)optionNumber){
+            case 1:
+                partyMode();
+                break;
+            case 2:
+                sleepingMode();
+                break;
+            case 3:
+                concentrationMode();
+                break;
+            case 4:
+                romanticMode();
+                break;
+        }
         currentMoodText.setText(adapter.getTitle((int)optionNumber-1) + " 적용 중 입니다.");
         Toast.makeText(requireContext(), "설정되었습니다.", Toast.LENGTH_SHORT).show();
+    }
+
+    private void partyMode(){
+        // Firebase 데이터베이스 참조
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        airDataRef = database.getReference("airData");
+        humDataRef = database.getReference("humData");
+        lightDataRef = database.getReference("lightData");
+        speakerDataRef = database.getReference("speakerData");
+        windowDataRef = database.getReference("windowData");
+
+        airDataRef.child("windPower").setValue("turbo");
+        humDataRef.child("humMode").setValue("weak");
+        lightDataRef.child("lightOption").setValue(2);
+        speakerDataRef.child("currentMusic").setValue(1);
+        windowDataRef.child("closeLivingRoomWindow").setValue(true);
+        windowDataRef.child("closeRoomWindow").setValue(true);
+    }
+
+    private void sleepingMode(){
+        // Firebase 데이터베이스 참조
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        airDataRef = database.getReference("airData");
+        humDataRef = database.getReference("humData");
+        lightDataRef = database.getReference("lightData");
+        speakerDataRef = database.getReference("speakerData");
+        windowDataRef = database.getReference("windowData");
+
+        airDataRef.child("windPower").setValue("weak");
+        humDataRef.child("humMode").setValue("moderate");
+        lightDataRef.child("lightOption").setValue(1);
+        speakerDataRef.child("currentMusic").setValue(3);
+        windowDataRef.child("closeLivingRoomWindow").setValue(true);
+        windowDataRef.child("closeRoomWindow").setValue(true);
+    }
+
+    private void concentrationMode(){
+        // Firebase 데이터베이스 참조
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        airDataRef = database.getReference("airData");
+        humDataRef = database.getReference("humData");
+        lightDataRef = database.getReference("lightData");
+        speakerDataRef = database.getReference("speakerData");
+        windowDataRef = database.getReference("windowData");
+
+        airDataRef.child("windPower").setValue("weak");
+        humDataRef.child("humMode").setValue("moderate");
+        lightDataRef.child("lightOption").setValue(4);
+        speakerDataRef.child("currentMusic").setValue(4);
+        windowDataRef.child("closeLivingRoomWindow").setValue(false);
+        windowDataRef.child("closeRoomWindow").setValue(true);
+    }
+
+    private void romanticMode(){
+        // Firebase 데이터베이스 참조
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        airDataRef = database.getReference("airData");
+        humDataRef = database.getReference("humData");
+        lightDataRef = database.getReference("lightData");
+        speakerDataRef = database.getReference("speakerData");
+        windowDataRef = database.getReference("windowData");
+
+        airDataRef.child("windPower").setValue("moderate");
+        humDataRef.child("humMode").setValue("strong");
+        lightDataRef.child("lightOption").setValue(3);
+        speakerDataRef.child("currentMusic").setValue(3);
+        windowDataRef.child("closeLivingRoomWindow").setValue(true);
+        windowDataRef.child("closeRoomWindow").setValue(true);
     }
 }
