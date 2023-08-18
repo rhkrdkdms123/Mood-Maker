@@ -1,64 +1,165 @@
 package com.example.iothome;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.Switch;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SettingFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class SettingFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public SettingFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SettingFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SettingFragment newInstance(String param1, String param2) {
-        SettingFragment fragment = new SettingFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    private DatabaseReference mDatabase;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_setting, container, false);
+        View view = inflater.inflate(R.layout.fragment_setting, container, false);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        Switch livingRoomWindowAutoSwitch = view.findViewById(R.id.LivingRoomWindowAutoSwitch);
+        Switch roomWindowAutoSwitch = view.findViewById(R.id.RoomWindowAutoSwitch);
+        Switch airAutoSwitch = view.findViewById(R.id.AirAutoSwitch);
+        Switch humAutoSwitch = view.findViewById(R.id.HumAutoSwitch);
+
+        mDatabase.child("windowData").child("LivingRoomWindowAuto").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Boolean livingRoomWindowAuto = snapshot.getValue(Boolean.class);
+                if (livingRoomWindowAuto != null) {
+                    livingRoomWindowAutoSwitch.setChecked(livingRoomWindowAuto);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("SettingFragment", "Firebase Database Error: " + error.getMessage());
+            }
+        });
+
+        mDatabase.child("windowData").child("RoomWindowAuto").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Boolean roomWindowAuto = snapshot.getValue(Boolean.class);
+                if (roomWindowAuto != null) {
+                    roomWindowAutoSwitch.setChecked(roomWindowAuto);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("SettingFragment", "Firebase Database Error: " + error.getMessage());
+            }
+        });
+
+        mDatabase.child("airData").child("airAuto").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Boolean airAuto = snapshot.getValue(Boolean.class);
+                if (airAuto != null) {
+                    airAutoSwitch.setChecked(airAuto);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("SettingFragment", "Firebase Database Error: " + error.getMessage());
+            }
+        });
+
+        mDatabase.child("humData").child("humAuto").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Boolean humAuto = snapshot.getValue(Boolean.class);
+                if (humAuto != null) {
+                    humAutoSwitch.setChecked(humAuto);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("SettingFragment", "Firebase Database Error: " + error.getMessage());
+            }
+        });
+
+        livingRoomWindowAutoSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (!buttonView.isPressed()) {
+                    return;
+                }
+                showAlertDialog("거실 창문", isChecked, "windowData/LivingRoomWindowAuto");
+            }
+        });
+
+        roomWindowAutoSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (!buttonView.isPressed()) {
+                    return;
+                }
+                showAlertDialog("방 창문", isChecked, "windowData/RoomWindowAuto");
+            }
+        });
+
+        airAutoSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (!buttonView.isPressed()) {
+                    return;
+                }
+                showAlertDialog("공기 청정기", isChecked, "airData/airAuto");
+            }
+        });
+
+        humAutoSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (!buttonView.isPressed()) {
+                    return;
+                }
+                showAlertDialog("가습기", isChecked, "humData/humAuto");
+            }
+        });
+
+        return view;
+    }
+
+    private void updateFirebaseData(String path, boolean value) {
+        mDatabase.child(path).setValue(value);
+    }
+
+    private void showAlertDialog(String itemName, boolean isChecked, String firebasePath) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setMessage(isChecked ? itemName + "를 자동 모드로 설정하시겠습니까?" : itemName + "를 수동 모드로 설정하시겠습니까?")
+                .setPositiveButton("예", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        updateFirebaseData(firebasePath, isChecked);
+                        String toastMessage = isChecked ? itemName + "가 자동 모드로 설정되었습니다." : itemName + "가 수동 모드로 설정되었습니다.";
+                        Toast.makeText(requireContext(), toastMessage, Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Do nothing
+                    }
+                });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }
