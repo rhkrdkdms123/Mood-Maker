@@ -52,12 +52,12 @@ public class LightFragment extends Fragment {
 
         Switch lightSwitch = view.findViewById(R.id.light_switch);
 
-        lightDataRef.child("turnOnlight").addListenerForSingleValueEvent(new ValueEventListener() {
+        lightDataRef.child("isLightTurnedOn").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Boolean turnOnLight = snapshot.getValue(Boolean.class);
-                if (turnOnLight != null) {
-                    lightSwitch.setChecked(turnOnLight);
+                Boolean isLightTurnedOn = snapshot.getValue(Boolean.class);
+                if (isLightTurnedOn != null) {
+                    lightSwitch.setChecked(isLightTurnedOn);
                 }
             }
 

@@ -82,5 +82,13 @@
             android:layout_marginBottom="20dp"
             android:background="#B1B1B1" />
 
+        <Button
+            android:id="@+id/copyrightBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="20dp"
+            android:text="저작권 확인" />
+
     </LinearLayout>
 </FrameLayout>

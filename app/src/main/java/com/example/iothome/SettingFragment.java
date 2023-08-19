@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -34,6 +35,21 @@ public class SettingFragment extends Fragment {
         Switch roomWindowAutoSwitch = view.findViewById(R.id.RoomWindowAutoSwitch);
         Switch airAutoSwitch = view.findViewById(R.id.AirAutoSwitch);
         Switch humAutoSwitch = view.findViewById(R.id.HumAutoSwitch);
+        Button copyrightBtn=view.findViewById(R.id.copyrightBtn);
+        copyrightBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCopyrightFragment();
+            }
+
+            private void openCopyrightFragment() {
+                CopyrightFragment copyrightFragment = new CopyrightFragment();
+                requireActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frame, copyrightFragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
 
         mDatabase.child("windowData").child("LivingRoomWindowAuto").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
