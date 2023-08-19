@@ -85,7 +85,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
-                android:drawableTop="@drawable/ic_firework_24" />
+                android:drawableTop="@drawable/ic_hearts_24" />
 
             <Button
                 android:id="@+id/light_option_4_button"

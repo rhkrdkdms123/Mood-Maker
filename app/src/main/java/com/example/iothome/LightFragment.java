@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.text.Spannable;
@@ -21,8 +22,11 @@ import android.widget.Button;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LightFragment extends Fragment {
     private DatabaseReference lightDataRef;
@@ -48,6 +52,21 @@ public class LightFragment extends Fragment {
 
         Switch lightSwitch = view.findViewById(R.id.light_switch);
 
+        lightDataRef.child("turnOnlight").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Boolean turnOnLight = snapshot.getValue(Boolean.class);
+                if (turnOnLight != null) {
+                    lightSwitch.setChecked(turnOnLight);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("lightFragment", "Firebase Database Error: " + error.getMessage());
+            }
+        });
+
         lightSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             lightDataRef.child("turnOnLight").setValue(isChecked);
         });
@@ -67,14 +86,14 @@ public class LightFragment extends Fragment {
         customLight2Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showConfirmationDialog(2, "Happy Ending");
+                showConfirmationDialog(2, "폭죽 그림");
             }
         });
 
         customLight3Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showConfirmationDialog(3, "폭죽 그림");
+                showConfirmationDialog(3, "하트 배경");
             }
         });
 
@@ -103,7 +122,7 @@ public class LightFragment extends Fragment {
 
         //option 2 텍스트 설정
         String light2_firstLine = "연말 파티에 어울리는";
-        String light2_secondLine = "Happy Ending";
+        String light2_secondLine = "폭죽 그림";
 
         SpannableString light2BtnString = new SpannableString(light2_firstLine + "\n\n" + light2_secondLine);
 
@@ -118,8 +137,8 @@ public class LightFragment extends Fragment {
 
 
         //option 3 텍스트 설정
-        String light3_firstLine = "파티의 분위기를 \n올리고 싶다면";
-        String light3_secondLine = "폭죽 그림";
+        String light3_firstLine = "연인과의 분위기를 \n올리고 싶다면";
+        String light3_secondLine = "하트 배경";
 
         SpannableString light3BtnString = new SpannableString(light3_firstLine + "\n\n" + light3_secondLine);
 
