@@ -111,9 +111,9 @@ public class LightFragment extends Fragment {
         SpannableString light1BtnString = new SpannableString(light1_firstLine + "\n\n" + light1_secondLine);
 
         light1BtnString.setSpan(new StyleSpan(Typeface.NORMAL), 0, light1_firstLine.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        light1BtnString.setSpan(new AbsoluteSizeSpan(14, true), 0, light1_firstLine.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        light1BtnString.setSpan(new AbsoluteSizeSpan(10, true), 0, light1_firstLine.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         light1BtnString.setSpan(new StyleSpan(Typeface.BOLD), light1_firstLine.length() + 2, light1BtnString.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        light1BtnString.setSpan(new AbsoluteSizeSpan(20, true), light1_firstLine.length() + 2, light1BtnString.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        light1BtnString.setSpan(new AbsoluteSizeSpan(16, true), light1_firstLine.length() + 2, light1BtnString.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 
         light1BtnString.setSpan(new ForegroundColorSpan(Color.BLACK), 0, light1BtnString.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 
@@ -127,9 +127,9 @@ public class LightFragment extends Fragment {
         SpannableString light2BtnString = new SpannableString(light2_firstLine + "\n\n" + light2_secondLine);
 
         light2BtnString.setSpan(new StyleSpan(Typeface.NORMAL), 0, light2_firstLine.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        light2BtnString.setSpan(new AbsoluteSizeSpan(14, true), 0, light2_firstLine.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        light2BtnString.setSpan(new AbsoluteSizeSpan(10, true), 0, light2_firstLine.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         light2BtnString.setSpan(new StyleSpan(Typeface.BOLD), light2_firstLine.length() + 2, light2BtnString.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        light2BtnString.setSpan(new AbsoluteSizeSpan(20, true), light2_firstLine.length() + 2, light2BtnString.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        light2BtnString.setSpan(new AbsoluteSizeSpan(16, true), light2_firstLine.length() + 2, light2BtnString.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 
         light2BtnString.setSpan(new ForegroundColorSpan(Color.BLACK), 0, light2BtnString.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 
@@ -143,9 +143,9 @@ public class LightFragment extends Fragment {
         SpannableString light3BtnString = new SpannableString(light3_firstLine + "\n\n" + light3_secondLine);
 
         light3BtnString.setSpan(new StyleSpan(Typeface.NORMAL), 0, light3_firstLine.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        light3BtnString.setSpan(new AbsoluteSizeSpan(14, true), 0, light3_firstLine.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        light3BtnString.setSpan(new AbsoluteSizeSpan(10, true), 0, light3_firstLine.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         light3BtnString.setSpan(new StyleSpan(Typeface.BOLD), light3_firstLine.length() + 2, light3BtnString.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        light3BtnString.setSpan(new AbsoluteSizeSpan(20, true), light3_firstLine.length() + 2, light3BtnString.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        light3BtnString.setSpan(new AbsoluteSizeSpan(16, true), light3_firstLine.length() + 2, light3BtnString.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 
         light3BtnString.setSpan(new ForegroundColorSpan(Color.BLACK), 0, light3BtnString.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 
@@ -159,9 +159,9 @@ public class LightFragment extends Fragment {
         SpannableString light4BtnString = new SpannableString(light4_firstLine + "\n\n" + light4_secondLine);
 
         light4BtnString.setSpan(new StyleSpan(Typeface.NORMAL), 0, light4_firstLine.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        light4BtnString.setSpan(new AbsoluteSizeSpan(14, true), 0, light4_firstLine.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        light4BtnString.setSpan(new AbsoluteSizeSpan(10, true), 0, light4_firstLine.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         light4BtnString.setSpan(new StyleSpan(Typeface.BOLD), light4_firstLine.length() + 2, light4BtnString.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        light4BtnString.setSpan(new AbsoluteSizeSpan(20, true), light4_firstLine.length() + 2, light4BtnString.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        light4BtnString.setSpan(new AbsoluteSizeSpan(16, true), light4_firstLine.length() + 2, light4BtnString.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 
         light4BtnString.setSpan(new ForegroundColorSpan(Color.BLACK), 0, light4BtnString.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 
